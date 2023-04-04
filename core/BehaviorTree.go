@@ -229,6 +229,9 @@ func (this *BehaviorTree) Load(data *config.BTTreeCfg, maps *b3.RegisterStructMa
 			for i := 0; i < len(spec.Children); i++ {
 				var cid = spec.Children[i]
 				comp := node.(IComposite)
+				if nodes[cid] == nil {
+					panic("BehaviorTree.load: Invalid node id: " + cid)
+				}
 				comp.AddChild(nodes[cid])
 			}
 		} else if node.GetCategory() == b3.DECORATOR && len(spec.Child) > 0 {

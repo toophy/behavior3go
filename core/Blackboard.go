@@ -193,6 +193,10 @@ func (this *Blackboard) Remove(key string) {
 	var memory = this._getMemory("", "")
 	memory.Remove(key)
 }
+func (this *Blackboard) RemoveEx(key string, treeScope, nodeScope string) {
+	var memory = this._getMemory(treeScope, nodeScope)
+	memory.Remove(key)
+}
 func (this *Blackboard) SetTree(key string, value interface{}, treeScope string) {
 	var memory = this._getMemory(treeScope, "")
 	memory.Set(key, value)

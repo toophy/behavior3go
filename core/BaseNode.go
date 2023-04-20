@@ -192,7 +192,7 @@ func (this *BaseNode) _execute(tick Tick) b3.Status {
 	this._enter(tick)
 
 	// OPEN
-	if !tick.GetBlackBoard().GetBool("isOpen", tick.GetTree().id, this.id) {
+	if !tick.GetBlackboard().GetBool("isOpen", tick.GetTree().id, this.id) {
 		this._open(tick)
 	}
 
@@ -233,7 +233,7 @@ func (this *BaseNode) _enter(tick Tick) {
 func (this *BaseNode) _open(tick Tick) {
 	//fmt.Println("_open :", this.title)
 	tick._openNode(this)
-	tick.GetBlackBoard().Set("isOpen", true, tick.GetTree().id, this.id)
+	tick.GetBlackboard().Set("isOpen", true, tick.GetTree().id, this.id)
 	this.OnOpen(tick)
 }
 
@@ -258,7 +258,7 @@ func (this *BaseNode) _tick(tick Tick) b3.Status {
 **/
 func (this *BaseNode) _close(tick Tick) {
 	tick._closeNode(this)
-	tick.GetBlackBoard().Set("isOpen", false, tick.GetTree().id, this.id)
+	tick.GetBlackboard().Set("isOpen", false, tick.GetTree().id, this.id)
 	this.OnClose(tick)
 }
 

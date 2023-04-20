@@ -187,7 +187,7 @@ func (this *TickImp) GetTarget() interface{} {
 	return this.target
 }
 
-func (this *TickImp) GetBlackBoard() *Blackboard {
+func (this *TickImp) GetBlackboard() *Blackboard {
 	return this.Blackboard
 }
 

@@ -19,7 +19,7 @@ type Tick interface {
 
 	GetTarget() interface{}
 
-	GetBlackBoard() *Blackboard
+	GetBlackboard() *Blackboard
 
 	/**
 	 * Called when entering a node (called by BaseNode).

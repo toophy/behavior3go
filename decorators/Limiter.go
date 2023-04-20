@@ -1,9 +1,9 @@
 package decorators
 
 import (
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/config"
-	. "github.com/magicsea/behavior3go/core"
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/config"
+	. "github.com/toophy/behavior3go/core"
 )
 
 /**
@@ -46,15 +46,15 @@ func (this *Limiter) Initialize(setting *BTNodeCfg) {
  * @param {b3.Tick} tick A tick instance.
  * @return {Constant} A state constant.
 **/
-func (this *Limiter) OnTick(tick *Tick) b3.Status {
+func (this *Limiter) OnTick(tick Tick) b3.Status {
 	if this.GetChild() == nil {
 		return b3.ERROR
 	}
-	var i = tick.Blackboard.GetInt("i", tick.GetTree().GetID(), this.GetID())
+	var i = tick.GetBlackboard().GetInt("i", tick.GetTree().GetID(), this.GetID())
 	if i < this.maxLoop {
 		var status = this.GetChild().Execute(tick)
 		if status == b3.SUCCESS || status == b3.FAILURE {
-			tick.Blackboard.Set("i", i+1, tick.GetTree().GetID(), this.GetID())
+			tick.GetBlackboard().Set("i", i+1, tick.GetTree().GetID(), this.GetID())
 		}
 		return status
 	}

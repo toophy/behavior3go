@@ -1,8 +1,8 @@
 package core
 
 import (
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/config"
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/config"
 )
 
 type IDecorator interface {
@@ -33,7 +33,7 @@ func (this *Decorator) Initialize(params *BTNodeCfg) {
 	//this.BaseNode.IBaseWorker = this
 }
 
-//GetChild
+// GetChild
 func (this *Decorator) GetChild() IBaseNode {
 	return this.child
 }

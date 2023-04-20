@@ -3,9 +3,9 @@ package actions
 import (
 	"fmt"
 
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/config"
-	. "github.com/magicsea/behavior3go/core"
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/config"
+	. "github.com/toophy/behavior3go/core"
 )
 
 type Log struct {
@@ -18,7 +18,7 @@ func (this *Log) Initialize(setting *BTNodeCfg) {
 	this.info = setting.GetPropertyAsString("info")
 }
 
-func (this *Log) OnTick(tick *Tick) b3.Status {
+func (this *Log) OnTick(tick Tick) b3.Status {
 	fmt.Println("log:", this.info)
 	return b3.SUCCESS
 }

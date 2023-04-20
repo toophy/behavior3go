@@ -1,8 +1,8 @@
 package decorators
 
 import (
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/core"
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/core"
 )
 
 /**
@@ -23,7 +23,7 @@ type Inverter struct {
  * @param {b3.Tick} tick A tick instance.
  * @return {Constant} A state constant.
 **/
-func (this *Inverter) OnTick(tick *Tick) b3.Status {
+func (this *Inverter) OnTick(tick Tick) b3.Status {
 	if this.GetChild() == nil {
 		return b3.ERROR
 	}

@@ -1,10 +1,9 @@
 package decorators
 
 import (
-
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/config"
-	. "github.com/magicsea/behavior3go/core"
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/config"
+	. "github.com/toophy/behavior3go/core"
 )
 
 /**
@@ -46,8 +45,8 @@ func (this *Repeater) Initialize(setting *BTNodeCfg) {
  * @method open
  * @param {Tick} tick A tick instance.
 **/
-func (this *Repeater) OnOpen(tick *Tick) {
-	tick.Blackboard.Set("i", 0, tick.GetTree().GetID(), this.GetID())
+func (this *Repeater) OnOpen(tick Tick) {
+	tick.GetBlackboard().Set("i", 0, tick.GetTree().GetID(), this.GetID())
 }
 
 /**
@@ -56,12 +55,12 @@ func (this *Repeater) OnOpen(tick *Tick) {
  * @param {b3.Tick} tick A tick instance.
  * @return {Constant} A state constant.
 **/
-func (this *Repeater) OnTick(tick *Tick) b3.Status {
+func (this *Repeater) OnTick(tick Tick) b3.Status {
 	//fmt.Println("tick ", this.GetTitle())
 	if this.GetChild() == nil {
 		return b3.ERROR
 	}
-	var i = tick.Blackboard.GetInt("i", tick.GetTree().GetID(), this.GetID())
+	var i = tick.GetBlackboard().GetInt("i", tick.GetTree().GetID(), this.GetID())
 	var status = b3.SUCCESS
 	for this.maxLoop < 0 || i < this.maxLoop {
 		status = this.GetChild().Execute(tick)
@@ -71,6 +70,6 @@ func (this *Repeater) OnTick(tick *Tick) b3.Status {
 			break
 		}
 	}
-	tick.Blackboard.Set("i", i, tick.GetTree().GetID(), this.GetID())
+	tick.GetBlackboard().Set("i", i, tick.GetTree().GetID(), this.GetID())
 	return status
 }

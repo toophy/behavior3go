@@ -1,14 +1,14 @@
 package actions
 
 import (
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/core"
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/core"
 )
 
 type Succeeder struct {
 	Action
 }
 
-func (this *Succeeder) OnTick(tick *Tick) b3.Status {
+func (this *Succeeder) OnTick(tick Tick) b3.Status {
 	return b3.SUCCESS
 }

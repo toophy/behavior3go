@@ -3,9 +3,9 @@ package decorators
 import (
 	"time"
 
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/config"
-	. "github.com/magicsea/behavior3go/core"
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/config"
+	. "github.com/toophy/behavior3go/core"
 )
 
 /**
@@ -48,9 +48,9 @@ func (this *MaxTime) Initialize(setting *BTNodeCfg) {
  * @method open
  * @param {Tick} tick A tick instance.
 **/
-func (this *MaxTime) OnOpen(tick *Tick) {
+func (this *MaxTime) OnOpen(tick Tick) {
 	var startTime int64 = time.Now().UnixNano() / 1000000
-	tick.Blackboard.Set("startTime", startTime, tick.GetTree().GetID(), this.GetID())
+	tick.GetBlackboard().Set("startTime", startTime, tick.GetTree().GetID(), this.GetID())
 }
 
 /**
@@ -59,12 +59,12 @@ func (this *MaxTime) OnOpen(tick *Tick) {
  * @param {b3.Tick} tick A tick instance.
  * @return {Constant} A state constant.
 **/
-func (this *MaxTime) OnTick(tick *Tick) b3.Status {
+func (this *MaxTime) OnTick(tick Tick) b3.Status {
 	if this.GetChild() == nil {
 		return b3.ERROR
 	}
 	var currTime int64 = time.Now().UnixNano() / 1000000
-	var startTime int64 = tick.Blackboard.GetInt64("startTime", tick.GetTree().GetID(), this.GetID())
+	var startTime int64 = tick.GetBlackboard().GetInt64("startTime", tick.GetTree().GetID(), this.GetID())
 	var status = this.GetChild().Execute(tick)
 	if currTime-startTime > this.maxTime {
 		return b3.FAILURE

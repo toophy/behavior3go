@@ -1,10 +1,11 @@
 package actions
 
 import (
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/config"
-	. "github.com/magicsea/behavior3go/core"
 	"time"
+
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/config"
+	. "github.com/toophy/behavior3go/core"
 )
 
 /**
@@ -41,9 +42,9 @@ func (this *Wait) Initialize(setting *BTNodeCfg) {
  * @method open
  * @param {Tick} tick A tick instance.
 **/
-func (this *Wait) OnOpen(tick *Tick) {
+func (this *Wait) OnOpen(tick Tick) {
 	var startTime int64 = time.Now().UnixNano() / 1000000
-	tick.Blackboard.Set("startTime", startTime, tick.GetTree().GetID(), this.GetID())
+	tick.GetBlackboard().Set("startTime", startTime, tick.GetTree().GetID(), this.GetID())
 }
 
 /**
@@ -52,9 +53,9 @@ func (this *Wait) OnOpen(tick *Tick) {
  * @param {Tick} tick A tick instance.
  * @return {Constant} A state constant.
 **/
-func (this *Wait) OnTick(tick *Tick) b3.Status {
+func (this *Wait) OnTick(tick Tick) b3.Status {
 	var currTime int64 = time.Now().UnixNano() / 1000000
-	var startTime = tick.Blackboard.GetInt64("startTime", tick.GetTree().GetID(), this.GetID())
+	var startTime = tick.GetBlackboard().GetInt64("startTime", tick.GetTree().GetID(), this.GetID())
 	//fmt.Println("wait:",this.GetTitle(),tick.GetLastSubTree(),"=>", currTime-startTime)
 	if currTime-startTime > this.endTime {
 		return b3.SUCCESS

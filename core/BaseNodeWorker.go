@@ -4,8 +4,8 @@ import (
 	"fmt"
 	_ "fmt"
 
-	b3 "github.com/magicsea/behavior3go"
-	_ "github.com/magicsea/behavior3go/config"
+	b3 "github.com/toophy/behavior3go"
+	_ "github.com/toophy/behavior3go/config"
 )
 
 type IBaseWorker interface {
@@ -17,7 +17,7 @@ type IBaseWorker interface {
 	 * @method enter
 	 * @param {Tick} tick A tick instance.
 	**/
-	OnEnter(tick *Tick)
+	OnEnter(tick Tick)
 	/**
 	 * Open method, override this to use. It is called only before the tick
 	 * callback and only if the not isn't closed.
@@ -27,7 +27,7 @@ type IBaseWorker interface {
 	 * @method open
 	 * @param {Tick} tick A tick instance.
 	**/
-	OnOpen(tick *Tick)
+	OnOpen(tick Tick)
 	/**
 	 * Tick method, override this to use. This method must contain the real
 	 * execution of node (perform a task, call children, etc.). It is called
@@ -36,7 +36,7 @@ type IBaseWorker interface {
 	 * @method tick
 	 * @param {Tick} tick A tick instance.
 	**/
-	OnTick(tick *Tick) b3.Status
+	OnTick(tick Tick) b3.Status
 	/**
 	 * Close method, override this to use. This method is called after the tick
 	 * callback, and only if the tick return a state different from
@@ -45,7 +45,7 @@ type IBaseWorker interface {
 	 * @method close
 	 * @param {Tick} tick A tick instance.
 	**/
-	OnClose(tick *Tick)
+	OnClose(tick Tick)
 	/**
 	 * Exit method, override this to use. Called every time in the end of the
 	 * execution.
@@ -53,7 +53,7 @@ type IBaseWorker interface {
 	 * @method exit
 	 * @param {Tick} tick A tick instance.
 	**/
-	OnExit(tick *Tick)
+	OnExit(tick Tick)
 }
 type BaseWorker struct {
 }
@@ -65,7 +65,7 @@ type BaseWorker struct {
  * @method enter
  * @param {Tick} tick A tick instance.
 **/
-func (this *BaseWorker) OnEnter(tick *Tick) {
+func (this *BaseWorker) OnEnter(tick Tick) {
 
 }
 
@@ -78,7 +78,7 @@ func (this *BaseWorker) OnEnter(tick *Tick) {
  * @method open
  * @param {Tick} tick A tick instance.
 **/
-func (this *BaseWorker) OnOpen(tick *Tick) {
+func (this *BaseWorker) OnOpen(tick Tick) {
 
 }
 
@@ -90,7 +90,7 @@ func (this *BaseWorker) OnOpen(tick *Tick) {
  * @method tick
  * @param {Tick} tick A tick instance.
 **/
-func (this *BaseWorker) OnTick(tick *Tick) b3.Status {
+func (this *BaseWorker) OnTick(tick Tick) b3.Status {
 	fmt.Println("tick BaseWorker")
 	return b3.ERROR
 }
@@ -103,7 +103,7 @@ func (this *BaseWorker) OnTick(tick *Tick) b3.Status {
  * @method close
  * @param {Tick} tick A tick instance.
 **/
-func (this *BaseWorker) OnClose(tick *Tick) {
+func (this *BaseWorker) OnClose(tick Tick) {
 
 }
 
@@ -114,6 +114,6 @@ func (this *BaseWorker) OnClose(tick *Tick) {
  * @method exit
  * @param {Tick} tick A tick instance.
 **/
-func (this *BaseWorker) OnExit(tick *Tick) {
+func (this *BaseWorker) OnExit(tick Tick) {
 
 }

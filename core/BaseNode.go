@@ -3,17 +3,17 @@ package core
 import (
 	_ "fmt"
 
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/config"
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/config"
 )
 
 type IBaseWrapper interface {
-	_execute(tick *Tick) b3.Status
-	_enter(tick *Tick)
-	_open(tick *Tick)
-	_tick(tick *Tick) b3.Status
-	_close(tick *Tick)
-	_exit(tick *Tick)
+	_execute(tick Tick) b3.Status
+	_enter(tick Tick)
+	_open(tick Tick)
+	_tick(tick Tick) b3.Status
+	_close(tick Tick)
+	_exit(tick Tick)
 }
 type IBaseNode interface {
 	IBaseWrapper
@@ -21,7 +21,7 @@ type IBaseNode interface {
 	Ctor()
 	Initialize(params *BTNodeCfg)
 	GetCategory() string
-	Execute(tick *Tick) b3.Status
+	Execute(tick Tick) b3.Status
 	GetName() string
 	GetTitle() string
 	SetBaseNodeWorker(worker IBaseWorker)
@@ -186,13 +186,13 @@ func (this *BaseNode) GetTitle() string {
  * @return {Constant} The tick state.
  * @protected
 **/
-func (this *BaseNode) _execute(tick *Tick) b3.Status {
+func (this *BaseNode) _execute(tick Tick) b3.Status {
 	//fmt.Println("_execute :", this.title)
 	// ENTER
 	this._enter(tick)
 
 	// OPEN
-	if !tick.Blackboard.GetBool("isOpen", tick.tree.id, this.id) {
+	if !tick.GetBlackBoard().GetBool("isOpen", tick.GetTree().id, this.id) {
 		this._open(tick)
 	}
 
@@ -209,7 +209,7 @@ func (this *BaseNode) _execute(tick *Tick) b3.Status {
 
 	return status
 }
-func (this *BaseNode) Execute(tick *Tick) b3.Status {
+func (this *BaseNode) Execute(tick Tick) b3.Status {
 	return this._execute(tick)
 }
 
@@ -219,7 +219,7 @@ func (this *BaseNode) Execute(tick *Tick) b3.Status {
  * @param {Tick} tick A tick instance.
  * @protected
 **/
-func (this *BaseNode) _enter(tick *Tick) {
+func (this *BaseNode) _enter(tick Tick) {
 	tick._enterNode(this)
 	this.OnEnter(tick)
 }
@@ -230,10 +230,10 @@ func (this *BaseNode) _enter(tick *Tick) {
  * @param {Tick} tick A tick instance.
  * @protected
 **/
-func (this *BaseNode) _open(tick *Tick) {
+func (this *BaseNode) _open(tick Tick) {
 	//fmt.Println("_open :", this.title)
 	tick._openNode(this)
-	tick.Blackboard.Set("isOpen", true, tick.tree.id, this.id)
+	tick.GetBlackBoard().Set("isOpen", true, tick.GetTree().id, this.id)
 	this.OnOpen(tick)
 }
 
@@ -244,7 +244,7 @@ func (this *BaseNode) _open(tick *Tick) {
  * @return {Constant} A state constant.
  * @protected
 **/
-func (this *BaseNode) _tick(tick *Tick) b3.Status {
+func (this *BaseNode) _tick(tick Tick) b3.Status {
 	//fmt.Println("_tick :", this.title)
 	tick._tickNode(this)
 	return this.OnTick(tick)
@@ -256,9 +256,9 @@ func (this *BaseNode) _tick(tick *Tick) b3.Status {
  * @param {Tick} tick A tick instance.
  * @protected
 **/
-func (this *BaseNode) _close(tick *Tick) {
+func (this *BaseNode) _close(tick Tick) {
 	tick._closeNode(this)
-	tick.Blackboard.Set("isOpen", false, tick.tree.id, this.id)
+	tick.GetBlackBoard().Set("isOpen", false, tick.GetTree().id, this.id)
 	this.OnClose(tick)
 }
 
@@ -268,7 +268,7 @@ func (this *BaseNode) _close(tick *Tick) {
  * @param {Tick} tick A tick instance.
  * @protected
 **/
-func (this *BaseNode) _exit(tick *Tick) {
+func (this *BaseNode) _exit(tick Tick) {
 	tick._exitNode(this)
 	this.OnExit(tick)
 }

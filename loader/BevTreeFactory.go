@@ -4,12 +4,12 @@ import (
 	_ "fmt"
 	_ "reflect"
 
-	b3 "github.com/magicsea/behavior3go"
-	. "github.com/magicsea/behavior3go/actions"
-	. "github.com/magicsea/behavior3go/composites"
-	. "github.com/magicsea/behavior3go/config"
-	. "github.com/magicsea/behavior3go/core"
-	. "github.com/magicsea/behavior3go/decorators"
+	b3 "github.com/toophy/behavior3go"
+	. "github.com/toophy/behavior3go/actions"
+	. "github.com/toophy/behavior3go/composites"
+	. "github.com/toophy/behavior3go/config"
+	. "github.com/toophy/behavior3go/core"
+	. "github.com/toophy/behavior3go/decorators"
 )
 
 func createBaseStructMaps() *b3.RegisterStructMaps {
@@ -42,4 +42,12 @@ func CreateBevTreeFromConfig(config *BTTreeCfg, extMap *b3.RegisterStructMaps) *
 	tree := NewBeTree()
 	tree.Load(config, baseMaps, extMap)
 	return tree
+}
+
+func DuplicateBevTree(srcTree *BehaviorTree, extMap *b3.RegisterStructMaps) *BehaviorTree {
+	// baseMaps := createBaseStructMaps()
+	// tree := NewBeTree()
+	// tree.Load(config, baseMaps, extMap)
+	// return tree
+	return nil
 }
